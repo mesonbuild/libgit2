@@ -1,5 +1,5 @@
 project('libgit2', 'c',
-	version: '0.27.3',
+	version: '0.27.4',
 	meson_version: '>=0.46.0',
 	default_options: ['c_std=gnu89'],
 	license: 'GPLv2 + Linking Exception')
@@ -292,6 +292,6 @@ libgit2_lib = library('git2', src_git2 + src_os + src_vendor,
 libgit2_dep = declare_dependency(
 	include_directories: i,
 	link_with: libgit2_lib,
-	version: '0.27.3')
+	version: meson.project_version())
 
 install_headers(h_inc_git2)
