@@ -1,0 +1,5 @@
+[wrap-file]
+source_url=https://github.com/libgit2/libgit2/archive/v0.27.4.zip
+source_filename=libgit2-0.27.4.zip
+directory=libgit2-0.27.4
+source_hash=3fb3adf787f64f7bfcbe79d650d242b9bfe4ea750a88b8157fbd970384660e19
