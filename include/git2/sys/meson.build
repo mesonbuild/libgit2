@@ -7,7 +7,9 @@ elif cc.sizeof('void*') == 4
 else
 	error('Unsupported architecture (pointer size is ' + cc.sizeof('void*') + ' bytes)')
 endif
-conf_data.set('GIT_THREADS', 1)
+if get_option('threadsafe')
+	conf_data.set('GIT_THREADS', 1)
+endif
 
 conf_file = configure_file(
 	output: 'features.h',

@@ -1,3 +1,5 @@
 option('sha1_backend', type: 'combo',
 	choices: ['Generic', 'CollisionDetection', 'Win32'],
 	value: 'Generic')
+option('threadsafe', type: 'boolean',
+	value: true)

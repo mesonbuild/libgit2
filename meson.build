@@ -1,7 +1,7 @@
 project('libgit2', 'c',
 	version: '0.27.3',
 	meson_version: '>=0.46.0',
-	default_options: ['c_std=c89'],
+	default_options: ['c_std=gnu89'],
 	license: 'GPLv2 + Linking Exception')
 
 pkg = import('pkgconfig')
@@ -256,6 +256,7 @@ if host_machine.system() == 'windows'
 		'src/win32/w32_crtdbg_stacktrace.c',
 		'src/win32/w32_stack.c',
 		'src/win32/w32_util.c' )
+	src_os += win_rc
 else
 	src_os = files(
 	'src/unix/map.c',
@@ -277,12 +278,16 @@ subdir('include/git2/sys')
 if get_option('sha1_backend') == 'Generic'
 	src_vendor += files('src/hash/hash_generic.c')
 endif
+libgit2_deps = []
+if get_option('threadsafe')
+	libgit2_deps += dependency('threads')
+endif
+libgit2_deps += dependency('zlib', fallback: ['zlib', 'zlib_dep'])
 
-zlib_dep = dependency('zlib', fallback: ['zlib', 'zlib_dep'])
-libgit2_lib = library('git2', src_git2 + src_os + win_rc + src_vendor,
+libgit2_lib = library('git2', src_git2 + src_os + src_vendor,
 	include_directories: [i, include_directories(i_vendor, 'src')],
 	install: true,
-	dependencies: [zlib_dep])
+	dependencies: libgit2_deps)
 
 libgit2_dep = declare_dependency(
 	include_directories: i,
